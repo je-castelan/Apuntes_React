@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  color: red;
+}
+
+.navbar {
+  height: 100px;
+  background-color: #333;
+  color: whitesmoke;
+  margin-bottom: 15px;
+  txt-align: center;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

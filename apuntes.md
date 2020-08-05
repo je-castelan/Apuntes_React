@@ -108,3 +108,213 @@ ReactDom.render(
   document.getElementById("root")
 )
 ```
+
+## Archivos Separados
+
+Ir a [este proyecto](archivos_separados).
+
+Una función la podemos sacar a un archivo nuevo.
+
+ - Este archivo lo podemos poner sobre el mismo directorio o en otro subdirectorio
+ - Para que la función sea usable por el `js` principal, es importante que la exportemos con la función `export default Funcion`
+ - En el `js` principal, la importamos con `import FUNCION from "./RUTA/FUNCION"`
+
+ 
+Esta es el `js` principal
+ 
+```
+// index.js
+
+import React from "react"
+import ReactDom from "react-dom"
+
+import MyInfo from "./components/MyInfo"
+
+ReactDom.render(
+  <MyInfo />,
+  document.getElementById("root")
+)
+```
+ Esta es el `js` con la función en el nuevo archivo
+ 
+```
+import React from "react"
+
+function MyInfo() {
+  return (
+    <div>
+      <h1>José Castelan</h1>
+      <p>Esto es un paragraph</p>
+      <ul>
+        <li>Ichi</li>
+        <li>Ni</li>
+        <li>San</li>
+      </ul>
+    </div>
+  )
+}
+
+export default MyInfo
+``` 
+ 
+ ## Componentes child y parent
+ 
+ Ir a [este proyecto](parent_child).
+ 
+Al separar los archivos, estas se pueden ir separando en más subarchivos, dividiendo cada sección del código
+ 
+Aquí vemos la función principal, la cual manda llamar a una App
+ 
+```
+import React from "react"
+import ReactDom from "react-dom"
+
+import App from "./components/App"
+
+ReactDom.render(
+  <App />,
+  document.getElementById("root")
+) 
+```
+
+La App a su vez, manda llamar a tres subfunciones llamadas Header, MainComponent y Footer
+
+```
+import React from "react"
+
+import Header from "./Header"
+import MainComponent from "./MainComponent"
+import Footer from "./Footer"
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <MainComponent />
+      <Footer />
+    </div>
+  )
+}
+
+export default App
+```
+
+Estas tres funciones ya tienen el contenido a mostrar
+
+ - Header.js
+
+```
+import React from "react"
+
+function Header() {
+  return (
+    <nav>
+      <h1>José Castelan</h1>
+      <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+      </ul>
+    </nav>
+  )
+}
+
+export default Header
+```
+
+ - MainComponent.js 
+
+```
+import React from "react"
+
+function MainComponent() {
+  return (
+      <main>
+        <p>Mucho contenido</p>
+      </main>
+  )
+}
+
+export default MainComponent
+```
+
+ - Footer.js
+
+```
+import React from "react"
+
+function Footer() {
+  return (
+    <footer>
+      <h3>Contact Me</h3>
+    </footer>
+  )
+}
+
+export default Footer
+```
+
+## Styling
+
+Ir a [este proyecto](styling).
+
+Los componentes finales de HTML (dev, header, footer) se pueden complementar con un class para empezar a darles diseño con css.
+
+```
+//Header.js
+import React from "react"
+
+function Header() {
+  return (
+    <header className="navbar">
+      Este es mi encabezado
+    </header>
+  )
+}
+
+export default Header
+```
+
+En el index.css se puede ir añadiendo los componentes de diseño de las clases creadas
+
+```
+body {
+  margin: 0
+}
+
+.navbar {
+  height: 100px;
+  background-color: #333;
+  color: whitesmoke;
+  margin-bottom: 15px;
+  txt-align: center;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+```
+
+En el index.js, hay que importar directamente el archivo css en caso de que no lo esté considerando
+
+```
+import React from "react"
+
+import Header from "./components/Header"
+import MainComponent from "./components/MainComponent"
+import Footer from "./components/Footer"
+
+import './index.css';
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <MainComponent />
+      <Footer />
+    </div>
+  )
+}
+
+export default App
+```

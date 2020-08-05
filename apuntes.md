@@ -318,3 +318,94 @@ function App() {
 
 export default App
 ```
+
+## Integración con Javascript
+
+Ir a [este proyecto](jsx_to_js_back).
+
+Se puede integrar código de Javascript dentro de las funciones. 
+
+```
+function App() {
+  const firstName = "Jose"
+  const lastName = "Castelan"
+  const date = new Date()
+  const hours = date.getHours()
+
+  let timeOfDay
+
+
+  if (hours < 12) {
+    timeOfDay = "Buenos días"
+  } else if (hours >= 12 && hours < 17) {
+    timeOfDay = "Buenas tardes"
+  } else {
+    timeOfDay = "Buenas noches"
+  }
+
+  //Continua
+```
+
+En los return se recomienda estos modos de salida
+
+ - {`${variable1} ${variable2} ${variable3}!`}
+ - { unicaVariable }
+
+```
+//Continuación
+  return (
+    <div>
+        <h1>{`${timeOfDay} ${firstName} ${lastName}!`}  </h1>
+        <p>Ya son las { date.getHours() % 12} </p>
+    </div>
+
+  )
+```
+
+## Objectos CSS
+
+Ir a [este proyecto](objetos_css).
+
+Se pueden hacer variables que contenga código css. 
+
+La constante debe tomar las siguientes cuestiones
+
+ - No se puede usar guiones. Las variables de CSS cambian de nombre quitando el guión, y la siguiente letra va en mayúscula
+ - Las variables alfanuméricas (valores en pixeles), deben ir entrecomillado
+ 
+```
+  const styles = {
+      color: "#FF8C00",
+      backgroundColor: "#FF2D00",
+      fontSize: "24px"
+    }
+```
+
+Este es insertado en el return
+
+```
+  return (
+    <div>
+        <h1 style ={styles}>{`${timeOfDay} ${firstName} ${lastName}!`}  </h1>
+    </div>
+  )
+```
+
+Los componentes CSS pueden ser alterados con código Javascript.
+
+```
+  const styles = {
+      fontSize: "24px"
+    }
+
+  if (hours < 12) {
+    timeOfDay = "Buenos días"
+    styles.color = "#04756F"
+  } else if (hours >= 12 && hours < 17) {
+    timeOfDay = "Buenas tardes"
+    styles.color = "#2E0927"
+  } else {
+    timeOfDay = "Buenas noches"
+    styles.color = "#D90000"
+  }
+```

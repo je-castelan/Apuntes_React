@@ -409,3 +409,136 @@ Los componentes CSS pueden ser alterados con código Javascript.
     styles.color = "#D90000"
   }
 ```
+
+## Propiedades
+
+Ir a [este proyecto](props)
+
+Al llamar varias veces un objeto, requerimos que vaya con información personalizada. Esto se puede hacer usando las propiedades que viajan en los scripts.
+
+La función con los valores finales debe venir con el argumento `props` y dentro vendrán los valores deseados
+
+En el siguiente script llamamos al object ContactCard, el cual le andamos poniendo los atributos.
+```
+// Apps.js
+import React from "react"
+import ContactCard from "./ContactCard"
+
+import './index.css';
+
+function App() {
+    return (
+        <div className="contacts">
+            <ContactCard
+                name="Mr. Whiskerson"
+                imgUrl="http://placekitten.com/300/200"
+                phone="(212) 555-1234"
+                email="mr.whiskaz@catnap.meow"
+            />
+
+            <ContactCard
+                name="Fluffykins"
+                imgUrl="http://placekitten.com/400/200"
+                phone="(212) 555-2345"
+                email="fluff@me.com"
+            />
+
+            <ContactCard
+                name="Destroyer"
+                imgUrl="http://placekitten.com/400/300"
+                phone="(212) 555-3456"
+                email="ofworlds@yahoo.com"
+            />
+
+            <ContactCard
+                name="Felix"
+                imgUrl="http://placekitten.com/200/100"
+                phone="(212) 555-4567"
+                email="thecat@hotmail.com"
+            />
+
+        </div>
+    )
+}
+
+export default App
+```
+El objeto ContactApp distribuye los atributos con el `props`
+
+```
+import React from "react"
+
+function ContactCard(props) {
+    console.log(props)
+    return (
+        <div className="contact-card">
+            <img src={props.imgUrl}/>
+            <h3>{props.name}</h3>
+            <p>Phone: {props.phone}</p>
+            <p>Email: {props.email}</p>
+        </div>
+    )
+}
+
+export default ContactCard
+```
+
+ - TIP: console.log(props) permite ver en la consola de desarrollo del browser las propiedades enviadas.
+ 
+ 
+Otra forma de usarlo es enviando en las propiedades un objecto que contenta sus características (algo que puede ocurrir si se usa JSON).
+
+Aqui vemos como viajael objeto `contact`.
+
+```
+//App.js
+
+import React from "react"
+import ContactCard from "./ContactCard"
+
+function App() {
+    return (
+        <div className="contacts">
+            <ContactCard 
+                contact={{name: "Mr. Whiskerson", imgUrl: "http://placekitten.com/300/200", phone: "(212) 555-1234", email: "mr.whiskaz@catnap.meow"}}
+            />
+            
+            <ContactCard 
+                contact={{name: "Fluffykins", imgUrl: "http://placekitten.com/400/200", phone: "(212) 555-2345", email: "fluff@me.com"}}
+            />
+            
+            <ContactCard
+                contact={{name: "Destroyer", imgUrl: "http://placekitten.com/400/300", phone: "(212) 555-3456", email: "ofworlds@yahoo.com"}}
+            />
+            
+            <ContactCard 
+                contact={{name: "Felix", imgUrl: "http://placekitten.com/200/100", phone: "(212) 555-4567", email: "thecat@hotmail.com"}}
+            />
+            
+        </div>
+    )
+}
+
+export default App
+```
+
+En el `ContactCard` se tiene que ingresar al objeto `Contact` para obtener su información.
+
+```
+// ContactCard.js
+import React from "react"
+
+function ContactCard(props) {
+    console.log(props)
+    return (
+        <div className="contact-card">
+            <img src={props.contact.imgUrl}/>
+            <h3>{props.contact.name}</h3>
+            <p>Phone: {props.contact.phone}</p>
+            <p>Email: {props.contact.email}</p>
+        </div>
+    )
+}
+
+export default ContactCard
+```

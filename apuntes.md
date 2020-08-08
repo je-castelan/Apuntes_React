@@ -545,11 +545,21 @@ export default ContactCard
 
 ## Mapeo de componentes
 
-Ir a [este proyecto](mapeo)
+Ir a [este proyecto](mapeo) y este [ejercicio](productos).
 
 Si se usa un origen de datos para no "hardcodear" contenido (es decir, consultar de una base de datos o usar JSON), se puede usar la función map de Javascript.
 
 Es importante que al llamar los componentes, se considere un id para que en Javascript no arroje warnings.
+
+Se puede enviar propiedad por propiedad
+
+> const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
+
+O se puede enviar el objeto en una instancia
+
+> const jokeComponents = jokesData.map(joke => <Joke key={joke.id} joke={joke} />)
+
+Los códigos finales quedarían así
 
 ```
 // App.js

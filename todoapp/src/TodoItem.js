@@ -1,12 +1,12 @@
 import React from "react"
 
-function App() {
+function TodoItem(props) {
   return (
     <div className="todo-item">
-      <input type="checkbox" />
-      <p>Pendiente </p>
+      <input type="checkbox" checked={props.todo.completed}  />
+      <p>{props.todo.text} </p>
     </div>
   )
 }
 
-export default App
+export default TodoItem

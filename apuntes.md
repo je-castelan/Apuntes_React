@@ -640,3 +640,106 @@ const jokesData = [
 
 export default jokesData
 ```
+
+
+## Componentes basados en clases
+
+Ir a [este proyecto](class_based).
+
+Podemos desplegar componentes con clases preexistentes. En este caso, es una clase que hereda de `React.Component`.
+
+```
+    class App extends React.Component {
+        
+        render() {
+            return (
+                <div>
+                    <h1>{this.props.whatever}</h1>
+                </div>
+            )
+        }
+    }
+```
+
+En las clases, las propiedades viajan en objetos `props`.
+
+```
+import React from "react"
+
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <Header username="Jose Castelan" />
+                <Greeting />
+            </div>
+        )
+    }
+}
+
+
+class Header extends React.Component {
+        render() {
+            return (
+                <header>
+                    <p>Welcome, {this.props.username}!</p>
+                </header>
+            )
+        }
+    }
+
+
+class Greeting extends React.Component {
+
+
+    render() {
+        const date = new Date()
+        const hours = date.getHours()
+        let timeOfDay
+
+        if (hours < 12) {
+            timeOfDay = "morning"
+        } else if (hours >= 12 && hours < 17) {
+            timeOfDay = "afternoon"
+        } else {
+            timeOfDay = "night"
+        }
+        return (
+            <h1>Good {timeOfDay} to you, sir or madam!</h1>
+        )
+
+    }
+
+}
+```
+
+## Manejo de estados
+
+Ir a [este proyecto](estados_react).
+
+No se pueden manipular estados directamente en el aplicativo. Deben estar dominados por las clases.
+
+Para ello, deben haber variables de estado que surjan desde el inicio de la clase. Para ello, usamos constructores donde podemos guardar los valores iniciales en una matríz.
+
+```
+import React from "react"
+
+class App extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            answer: "Yyes"
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Is state important to know? {this.state.answer}</h1>
+            </div>
+        )
+    }
+}
+
+export default App
+```

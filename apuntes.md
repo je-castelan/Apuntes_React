@@ -412,7 +412,7 @@ Los componentes CSS pueden ser alterados con código Javascript.
 
 ## Propiedades
 
-Ir a [este proyecto](props)
+Ir a [este proyecto](props) y [este ejercicio](jokes).
 
 Al llamar varias veces un objeto, requerimos que vaya con información personalizada. Esto se puede hacer usando las propiedades que viajan en los scripts.
 
@@ -541,4 +541,92 @@ function ContactCard(props) {
 }
 
 export default ContactCard
+```
+
+## Mapeo de componentes
+
+Ir a [este proyecto](mapeo)
+
+Si se usa un origen de datos para no "hardcodear" contenido (es decir, consultar de una base de datos o usar JSON), se puede usar la función map de Javascript.
+
+Es importante que al llamar los componentes, se considere un id para que en Javascript no arroje warnings.
+
+```
+// App.js
+
+import React from "react"
+import Joke from "./Joke"
+import jokesData from "./jokesData"
+
+import "./index.css"
+
+function App() {
+    const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
+
+    return (
+        <div>
+            {jokeComponents}
+        </div>
+    )
+}
+
+export default App
+```
+
+```
+//Joke.js
+
+import React from "react"
+
+function Joke(props) {
+    console.log(props)
+    return (
+        <div className="joke">
+            <h1 style={{display: props.question ? "block" : "none"}}>Answer: {props.question}</h1>
+            <h3 style={{color: !props.question && "#888888"}}>Question: {props.punchLine}</h3>
+        </div>
+    )
+}
+
+export default Joke
+```
+
+El contenido se almacena en una constante, pero puede ser una base de datos.
+
+```
+//jokesData.js
+
+const jokesData = [
+    {
+        id: 1,
+        punchLine: "It’s hard to explain puns to kleptomaniacs because they always take things literally."
+    },
+    {
+        id: 2,
+        question: "What's the best thing about Switzerland?",
+        punchLine: "I don't know, but the flag is a big plus!"
+    },
+    {
+        id: 3,
+        question: "Did you hear about the mathematician who's afraid of negative numbers?",
+        punchLine: "He'll stop at nothing to avoid them!"
+    },
+    {
+        id: 4,
+        question: "Hear about the new restaurant called Karma?",
+        punchLine: "There’s no menu: You get what you deserve."
+    },
+    {
+        id: 5,
+        question: "Did you hear about the actor who fell through the floorboards?",
+        punchLine: "He was just going through a stage."
+    },
+    {
+        id: 6,
+        question: "Did you hear about the claustrophobic astronaut?",
+        punchLine: "He just needed a little space."
+    }
+]
+
+export default jokesData
 ```

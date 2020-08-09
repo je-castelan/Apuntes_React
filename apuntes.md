@@ -743,3 +743,115 @@ class App extends React.Component {
 
 export default App
 ```
+
+## Eventos
+
+Ir a [este proyecto](handled_event)
+
+Podemos llamar funciones con javascript igual que con las variables. Esto nos sirve para la ejecución de eventos que ineractuan en el frontend.
+
+Se puede llamar a la función como variable (sin paréntesis)
+
+> <button onClick={handleClick}>Click me</button>
+
+O se puede llamar directamente (si es muy sencilla)
+
+> <img onMouseOver={() => console.log("Hovered!")} 
+
+```
+import React from "react"
+
+function handleClick() {
+    console.log("I was clicked")
+}
+
+// https://reactjs.org/docs/events.html#supported-events
+
+function App() {
+    return (
+        <div>
+            <img onMouseOver={() => console.log("Hovered!")} src="https://www.fillmurray.com/200/100"/>
+            <br />
+            <br />
+            <button onClick={handleClick}>Click me</button>
+        </div>
+    )
+}
+
+export default App
+```
+
+## Cambio de estados
+
+Ir a [este proyecto](change_state)
+
+Hay que hacer los siguientes pasos
+
+ - Invocar el tipo de cambio (ejemplo: onClick)
+ - Crear la función de cambio
+ - La función de cambio debe estar declarada en el constructor como "bind"
+ - Se usa la función setState para ejecutar el cambio de estado
+ - Usamos el estado previo con prevState para no manipular el estado previo.
+ 
+```
+import React from "react"
+
+class App extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            count: 0
+        }
+        this.handleClick = this.handleClick.bind(this)
+    }
+    
+    handleClick() {
+        this.setState(prevState => {
+            return {
+                count: prevState.count + 1
+            }
+        })
+    }
+    
+    render() {
+        return (
+            <div>
+                <h1>{this.state.count}</h1>
+                <button onClick={this.handleClick}>Change!</button>
+            </div>
+        )
+    }
+}
+
+export default App
+``` 
+
+Si tenemos una función que queremos que sea invocada por un componente hijo, se puede mandar como una propiedad.
+
+> const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item} handleChange={this.handleChange}/>)
+
+El componente hijo la puede invocar en un evento.
+
+> <input type="checkbox" onChange={() => this.props.handleChange(this.props.item.id)} checked={this.props.item.completed}  />
+
+Cuando el estado previo contiene objetos, se puede usar un mapeo analizando los arreglos anteriores. De este se pone una función que mapeé el elemento a cambiar.
+Notese que al final, el return contiene el objeto con tres puntos, y después el cambio deseado (los 3 puntos permiten que se envie todos los componentes de un objeto sin necesidad de asignarlos de uno en uno)
+
+``` 
+    handleChange(id){
+        this.setState(prevState => {
+            const updatedTodos = prevState.todos.map(todo => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        completed: !todo.completed
+                    }
+                }
+                return todo
+            })
+            return {
+                todos: updatedTodos
+            }
+        })
+    }
+```

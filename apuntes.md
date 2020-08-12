@@ -855,3 +855,122 @@ Notese que al final, el return contiene el objeto con tres puntos, y después el
         })
     }
 ```
+
+## Ciclo de vida
+
+Ir a [este proyecto](life_cycle)
+
+Se recomiena ver las siguientes URL
+
+ - [Blog con la explicación del ciclo de vida](https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1)
+ - [Documentación React v16](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes)
+ 
+Los componentes tienen un ciclo de vida que alude a los diferentes estados del objeto
+
+ - `componentDidMount()`: Obtiene la información a desplejar en la primera vez de arranque.
+ - `getSnapshotBeforeUpdate() `: Obtiene un respaldo del estatus y propiedades actuales
+ - `componentWillReceiveProps(nextProps)`: FUNCION DESCONTINUADA! Se analiza el estatus actual y siguiente para poder hacer acciones.
+ - `shouldComponentUpdate(nextProps, nextState)`: Similar al anterior, pero puede usar estados para saber si se toman acciones de cambio de render.
+ - `static getDerivedStateFromProps(props, state) `: Devuelve el estado actualizado basado en sus propiedades
+ - `componentDidUpdate()`: Información de cuando un componente se actualiza basado en su estado y propiedades
+ - `render()`:  Es el que está desplegando el estatus actual del componente
+ - `componentWillUnmount()`: Elimina el componente y lo limpia
+ 
+Cuando carga una página, se ejecuta la función `componentDidMount`:
+
+```
+     componentDidMount() {
+        console.log("Mounted")
+    }
+``` 
+
+Cuando hay una función que cambia un estado, podemos usar `compnentDidUpdate (prevProps, prevState)` donde se debe analizar si en realidad hubo un cambio haciendo una condición para hacer alguna acción.
+
+```
+    componentDidUpdate(prevProps, prevState) {
+        console.log("Updated")
+        if(prevState.count !== this.state.count) {
+            const newColor = randomcolor()
+            this.setState({color: newColor})
+        }
+    }
+```
+
+## Rendering
+
+Ir a [este proyecto](rendering1), a [este proyecto](rendering2) y  a [este proyecto](rendering3)
+
+Como vimos, el rendering va a estar desplegando todas las salidas que nos den las demás funciones del ciclo de vida.
+
+Por ejemplo, tenemos una app cuyo estado de carga inicia en verdadero.
+
+```
+    constructor() {
+        super()
+        this.state = {
+            isLoading: true
+        }
+    }
+```
+
+en el `componentDidMount` tenemos un timer que cuenta segundo y medio y cambia un estado de carga a false.
+
+```
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                isLoading: false
+            })
+        }, 1500)
+    }
+```
+
+En el rendering, siempre van a mostrar estos cambios de estado.
+
+```
+    render() {
+        return (
+            <div>
+                <Conditional isLoading={this.state.isLoading}/>
+            </div>
+        )
+    }
+```
+
+Algunas formas de eficientar código es usar el operador `?` para condicionales.
+
+```
+function Conditional(props) {
+    console.log(props)
+    let salida =(props.isLoading) ? "Cargando..." :  "Listo"
+
+    return (
+        <h1>{salida}</h1>
+    )
+}
+```
+
+Otra es poner una salida directamente a comparar con los operadores lógicos. Cuando la primera de falso, la cadena desaparece.
+
+```
+class App extends Component {
+    constructor() {
+        super()
+        this.state = {
+            unreadMessages: ["a", "b"]
+        }
+    }
+    // &&
+    // false && false
+    render() {
+        return (
+            <div>
+                {
+                    this.state.unreadMessages.length > 0 &&
+                    <h2>You have {this.state.unreadMessages.length} unread messages!</h2>
+                }
+            </div>
+        )
+    }
+}
+```

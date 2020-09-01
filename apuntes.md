@@ -974,3 +974,92 @@ class App extends Component {
     }
 }
 ```
+
+# Insertando información de API
+
+Ver [este proyecto](api_fetch)
+
+Se puede importar informarción de una API con el comando `fetch` apuntando a la ubicación. Este puede devolver informacion de respuesta y datos que se pueden jalar con las funciones `.then()`
+
+```
+componentDidMount() {
+        fetch("https://swapi.dev/api/people/1")
+            .then(response => response.json())
+            .then(data => console.log(data))
+    }
+```
+
+# Formularios
+
+Ver [este proyecto](forms1) y [este proyecto](forms2), así como a la [documentación oficial](https://reactjs.org/docs/forms.html). 
+
+Podemos tener en el render el desplegado de elementos de un formulario. Estos pueden tener valores atribuidos a estados.
+
+```
+    render() {
+        return (
+            <form>
+                <input 
+                    type="text" 
+                    value={this.state.firstName} 
+                    name="firstName" 
+                    placeholder="First Name" 
+                    onChange={this.handleChange} 
+                />
+                <br />
+                <input 
+                    type="text" 
+                    value={this.state.lastName} 
+                    name="lastName" 
+                    placeholder="Last Name" 
+                    onChange={this.handleChange} 
+                />
+                <h1>{this.state.firstName} {this.state.lastName}</h1>
+            </form>
+        )
+    }
+```
+
+Los valores se declaran en el constructor, así como las funciones que ejecutan la actualización de valores.
+
+```
+    constructor() {
+        super()
+        this.state = {
+            firstName: "",
+            lastName: ""
+        }
+        this.handleChange = this.handleChange.bind(this)
+    }
+```
+
+La función de cambio va a recibir los cambios de formulario en un `event`. Este evento va a traer un atributo `target` donde van a venir los elementos de formulario como son nombre, valor, tipo y checado.
+
+```
+    handleChange(event) {
+        const {name, value} = event.target
+        this.setState({
+            [name]: value
+        })
+    }
+```
+
+# Arquitectura componente - contenedor
+
+Ver [este proyecto](ComponentContainerArch).
+
+Al final, es bueno dividir la capa de negocio (contenedor) y la de vista (componente).
+
+Se recomienda tener la clase que se vea en el `index`. Pero en el render, se debe visualizar en formulario en un componente existente en un archivo aparte.
+
+```
+    render() {
+        return (
+            <FormComponent
+                actualizacion = {this.actualizacion}
+                data = {this.state}
+            />
+        )
+    }
+```
+

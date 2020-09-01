@@ -7,7 +7,7 @@ El siguiente paso es poder aplicar estos conocimientos dentro de mis habilidades
 Los proyectos que estaré haciendo son los siguientes:
 
 - Checklist de tareas pendientes [TodoApp](todoapp)
-- Generador de memes
+- Generador de memes [Meme Generator](memegenerator)
 
 Los apuntes se pueden consegui [aquí](apuntes.md).
 

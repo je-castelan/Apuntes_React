@@ -1063,3 +1063,82 @@ Se recomienda tener la clase que se vea en el `index`. Pero en el render, se deb
     }
 ```
 
+# Código actualizado
+
+ Ir a [este proyecto](ModernReact)
+
+ Hay algunas nuevas funcionalidades en React 16.4
+
+ 1.- Se puede dejar de usar la directriz `bind` en el constructor para declarar que una función manipulará estados. Solo es necesario usar la siguiente sintaxis.
+
+ ```
+     // Change to use arrow functions
+    handleChange = (event) => {
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        })
+    }
+ ```
+
+ 2.- No es necesario crear un constructor para la inicialización de estados. Solo basta con declarar la matríz.
+
+ ```
+ import React, {Component} from "react"
+
+class App extends Component {
+
+    state = {
+        firstName: "",
+        lastName: "",
+        description: "",
+        isFriendly: false,
+        gender: "",
+        favColor: "blue"
+    }
+
+...
+ ```
+
+ # React Hook
+
+ Permite usar estados sin necesidad de crear clases.
+
+ `useState` es un elemento de react que declara una variable como tipo estado
+
+ ```
+ import React, {useState} from "react"
+
+function App() {
+    const [answer] = useState("Yes")
+    return (
+        <div>
+            <h1>Is state important to know? {answer}</h1>
+        </div>
+    )
+}
+
+export default App
+ ```
+
+En el `useState` también se puede declarar si va a llevar algun modificador de estado como un `set`.
+
+> const [count, setCount] = useState(0)
+
+Existe `useEffect` que analiza de manera constante el cambio de estado para ejecutar acciones. Es mandatorio mencionar sobre que variable basar el monitoreo.
+
+```
+useEffect(() => {
+        setColor(randomcolor())
+    }, [count])
+```
+ 
+ Si se desea que se haga solo una vez, el `useEffect` debe sensar a un arreglo vacio.
+
+```
+     useEffect(() => {
+        setInterval(() => {
+            setCount(prevCount => prevCount + 1)
+        }, 1000)
+    }, [])
+```
